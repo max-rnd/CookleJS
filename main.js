@@ -1,5 +1,5 @@
 const CONTAINER = document.getElementsByClassName("container")[0]
-const URL = "https://127.0.0.1:8000"
+const URL = "https://8.0.0.1:8000"
 
 let myHeaders = new Headers()
 myHeaders.append("accept", "application/json")
@@ -17,8 +17,13 @@ let donnees = fetch(URL + '/api/recipes', myInit)
         hydrate(data)
       })
     } else {
-      console.error("ERREUR")
+      console.lgo("Une erreur c'est produite")
+      alert("Une erreur c'est produite", "danger")
     }
+  })
+  .catch((e) => {
+    console.log(e)
+    alert("Erreur lors de la connexion à la base de donnée", "danger")
   })
 
 function hydrate(data) {
@@ -46,4 +51,12 @@ function randRecipe(data) {
   let h = document.createElement('h3')
   h.innerText = "Recette du jour : " + data[rand].title
   CONTAINER.appendChild(h)
+}
+
+function alert(msg, type) {
+  let div = document.createElement('div')
+  div.setAttribute('class', 'alert alert-' + type)
+  div.setAttribute('role', 'alert')
+  div.innerText = msg
+  CONTAINER.insertBefore(div, CONTAINER.firstChild);
 }
